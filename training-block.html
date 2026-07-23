@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>4-Week Training Block — Jul 27 to Aug 23</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B1E24;
+    --paper:#F6F3EC;
+    --paper-dim:#EDE8DC;
+    --steel:#4B5563;
+    --steel-dark:#363E48;
+    --pine:#3F5B44;
+    --pine-dark:#2E4433;
+    --rust:#A8462D;
+    --gold:#C9A227;
+    --line:#D8D2C2;
+    --white:#FCFBF8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:56px 28px 100px;}
+
+  /* HEADER */
+  header{margin-bottom:44px;border-bottom:3px solid var(--ink);padding-bottom:28px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--steel);
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Oswald',sans-serif;
+    font-weight:700;
+    font-size:clamp(34px,5vw,54px);
+    line-height:1.02;
+    letter-spacing:-.01em;
+    margin:0 0 12px;
+    text-transform:uppercase;
+  }
+  .sub{
+    font-size:15.5px;
+    color:#4a4c52;
+    max-width:640px;
+    line-height:1.55;
+  }
+
+  /* LEGEND */
+  .legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:26px;
+  }
+  .chip{
+    display:flex;align-items:center;gap:7px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.03em;
+    padding:6px 12px;
+    border-radius:3px;
+    background:var(--white);
+    border:1px solid var(--line);
+  }
+  .dot{width:9px;height:9px;border-radius:2px;flex-shrink:0;}
+  .dot.oly{background:var(--steel-dark);}
+  .dot.run{background:var(--pine);}
+  .dot.cf{background:var(--rust);}
+  .dot.rest{background:var(--line);border:1px solid #b9b1a0;}
+
+  /* WEEK BLOCK */
+  .week{margin-top:52px;}
+  .week-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:16px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:10px;
+  }
+  .week-title{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    font-size:22px;
+    text-transform:uppercase;
+    letter-spacing:.01em;
+  }
+  .week-range{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--steel);
+  }
+
+  /* DAY GRID */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:10px;
+  }
+  @media (max-width:900px){
+    .grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:520px){
+    .grid{grid-template-columns:1fr;}
+  }
+
+  .card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:14px 13px 15px;
+    min-height:150px;
+    display:flex;
+    flex-direction:column;
+  }
+  .card.oly{background:var(--steel-dark);border-color:var(--steel-dark);color:var(--paper);}
+  .card.cf{background:#fbeee8;border-color:#e7c3b3;}
+  .card.rest{background:var(--paper-dim);}
+
+  .day-name{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    text-transform:uppercase;
+    letter-spacing:.02em;
+  }
+  .day-date{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    opacity:.65;
+    margin-bottom:9px;
+  }
+  .card.oly .day-date{opacity:.6;}
+
+  .type-tag{
+    display:inline-block;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:9.5px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    padding:2px 6px;
+    border-radius:2px;
+    margin-bottom:8px;
+    width:fit-content;
+  }
+  .type-tag.oly{background:rgba(246,243,236,.14);color:var(--gold);}
+  .type-tag.run{background:rgba(63,91,68,.12);color:var(--pine-dark);}
+  .type-tag.cf{background:rgba(168,70,45,.14);color:var(--rust);}
+  .type-tag.rest{background:rgba(75,85,99,.1);color:var(--steel);}
+
+  .content{
+    font-size:12.5px;
+    line-height:1.5;
+    flex-grow:1;
+  }
+  .content p{margin:0 0 6px;}
+  .content .lift-line{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.005em;}
+  .content .accessory{opacity:.75;font-size:11px;margin-top:5px;}
+  .card.oly .accessory{opacity:.6;}
+
+  /* Intensity bar - signature element */
+  .intensity{
+    margin-top:10px;
+    display:flex;
+    align-items:center;
+    gap:7px;
+  }
+  .intensity-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:9.5px;
+    color:var(--gold);
+    letter-spacing:.05em;
+    white-space:nowrap;
+  }
+  .bar-track{
+    flex-grow:1;
+    height:5px;
+    background:rgba(246,243,236,.15);
+    border-radius:3px;
+    overflow:hidden;
+  }
+  .bar-fill{
+    height:100%;
+    background:var(--gold);
+    border-radius:3px;
+  }
+
+  .rest-word{
+    font-family:'Oswald',sans-serif;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:#8b8676;
+    margin-top:auto;
+  }
+
+  /* PROGRESSION STRIP */
+  .progression{
+    margin-top:64px;
+    padding-top:30px;
+    border-top:3px solid var(--ink);
+  }
+  .progression h2{
+    font-family:'Oswald',sans-serif;
+    font-size:20px;
+    text-transform:uppercase;
+    margin:0 0 4px;
+  }
+  .progression .note{font-size:13px;color:#5a5c62;margin-bottom:22px;max-width:600px;line-height:1.55;}
+  .prog-row{display:flex;align-items:flex-end;gap:18px;height:90px;margin-bottom:10px;}
+  .prog-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;}
+  .prog-bar{
+    width:100%;
+    max-width:52px;
+    background:linear-gradient(180deg,var(--gold),var(--rust));
+    border-radius:3px 3px 0 0;
+  }
+  .prog-pct{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    margin-bottom:6px;
+    color:var(--ink);
+  }
+  .prog-wk{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    color:var(--steel);
+    margin-top:8px;
+    letter-spacing:.05em;
+  }
+
+  footer{
+    margin-top:56px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-size:12px;
+    color:#8b8676;
+    line-height:1.6;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Training Block · Jul 27 – Aug 23, 2026</div>
+    <h1>Four Weeks, No Race, All Barbell</h1>
+    <p class="sub">Two dedicated lift days a week built around Catalyst Athletics' Simply Complex cycle (weeks 8–11), a CrossFit class, and open-ended trail running — sequenced around a 6am-only window.</p>
+    <div class="legend">
+      <div class="chip"><span class="dot oly"></span>Oly Lift</div>
+      <div class="chip"><span class="dot cf"></span>CrossFit</div>
+      <div class="chip"><span class="dot run"></span>Run</div>
+      <div class="chip"><span class="dot rest"></span>Rest</div>
+    </div>
+  </header>
+
+  <!-- WEEK 1 -->
+  <section class="week">
+    <div class="week-head">
+      <div class="week-title">Week 1</div>
+      <div class="week-range">Jul 27 – Aug 2</div>
+    </div>
+    <div class="grid">
+
+      <div class="card oly">
+        <div class="day-name">Monday</div>
+        <div class="day-date">Jul 27</div>
+        <span class="type-tag oly">Oly Lift</span>
+        <div class="content">
+          <p class="lift-line">Snatch High-Pull + Snatch<br>70% x(1+1), 75% x(1+1) x4</p>
+          <p class="lift-line">Segment Snatch Pull<br>95% x2 x3</p>
+          <p class="lift-line">Back Squat — 75% x3 x3</p>
+          <p class="accessory">3× Weighted Plank 20–30s + Side Bend 10/side</p>
+        </div>
+        <div class="intensity">
+          <span class="intensity-label">PEAK 75%</span>
+          <div class="bar-track"><div class="bar-fill" style="width:65%"></div></div>
+        </div>
+      </div>
+
+      <div class="card run">
+        <div class="day-name">Tuesday</div>
+        <div class="day-date">Jul 28</div>
+        <span class="type-tag run">Trail Run</span>
+        <div class="content"><p>Easy-moderate trail, whatever distance feels good. No watch pressure.</p></div>
+      </div>
+
+      <div class="card rest">
+        <div class="day-name">Wednesday</div>
+        <div class="day-date">Jul 29</div>
+        <span class="type-tag rest">Recovery</span>
+        <div class="content"><p>No early alarm today.</p></div>
+        <div class="rest-word">Rest / Easy Short Run</div>
+      </div>
+
+      <div class="card cf">
+        <div class="day-name">Thursday</div>
+        <div class="day-date">Jul 30</div>
+        <span class="type-tag cf">CrossFit</span>
+        <div class="content"><p>Class as programmed. Treat as conditioning maintenance, not the main event this block.</p></div>
+      </div>
+
+      <div class="card oly">
+        <div class="day-name">Friday</div>
+        <div class="day-date">Jul 31</div>
+        <span class="type-tag oly">Oly Lift</span>
+        <div class="content">
+          <p class="lift-line">Clean+FS+PowerJerk+Jerk<br>70% x(1+1+1), 75% x(1+1+1) x4</p>
+          <p class="lift-line">Clean Pull — 95% x2 x3</p>
+          <p class="lift-line">Front Squat — 70% x3 x3</p>
+          <p class="accessory">3× Weighted Side Plank + Anti-Rotation Twist 10/side</p>
+        </div>
+        <div class="intensity">
+          <span class="intensity-label">PEAK 75%</span>
+          <div class="bar-track"><div class="bar-fill" style="width:65%"></div></div>
+        </div>
+      </div>
+
+      <div class="card run">
+        <div class="day-name">Saturday</div>
+        <div class="day-date">Aug 1</div>
+        <span class="type-tag run">Long Run</span>
+        <div class="content"><p>Conversational pace. Distance is your call — this is the week's anchor mileage.</p></div>
+      </div>
+
+      <div class="card rest">
+        <div class="day-name">Sunday</div>
+        <div class="day-date">Aug 2</div>
+        <span class="type-tag rest">Rest</span>
+        <div class="content"><p>Family day / easy hike if you want to move.</p></div>
+        <div class="rest-word">Off</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WEEK 2 -->
+  <section class="week">
+    <div class="week-head">
+      <div class="week-title">Week 2</div>
+      <div class="week-range">Aug 3 – Aug 9</div>
+    </div>
+    <div class="grid">
+
+      <div class="card oly">
+        <div class="day-name">Monday</div>
+        <div class="day-date">Aug 3</div>
+        <span class="type-tag oly">Oly Lift</span>
+        <div class="content">
+          <p class="lift-line">Snatch<br>70% x2, 75% x2, 80% x1, 85% x1 x5</p>
+          <p class="lift-line">Snatch Pull<br>100% x2, 105% x2 x3</p>
+          <p class="lift-line">Back Squat — 80% x3 x3</p>
+          <p class="accessory">3× Weighted Plank 20–30s + Side Bend 10/side</p>
+        </div>
+        <div class="intensity">
+          <span class="intensity-label">PEAK 85%</span>
+          <div class="bar-track"><div class="bar-fill" style="width:78%"></div></div>
+        </div>
+      </div>
+
+      <div class="card run">
+        <div class="day-name">Tuesday</div>
+        <div class="day-date">Aug 4</div>
+        <span class="type-tag run">Trail Run</span>
+        <div class="content"><p>Easy-moderate trail. Add a few strides at the end if legs feel fresh.</p></div>
+      </div>
+
+      <div class="card rest">
+        <div class="day-name">Wednesday</div>
+        <div class="day-date">Aug 5</div>
+        <span class="type-tag rest">Recovery</span>
+        <div class="content"><p>No early alarm today.</p></div>
+        <div class="rest-word">Rest / Easy Short Run</div>
+      </div>
+
+      <div class="card cf">
+        <div class="day-name">Thursday</div>
+        <div class="day-date">Aug 6</div>
+        <span class="type-tag cf">CrossFit</span>
+        <div class="content"><p>Class as programmed. Show up, move, don't overthink the WOD.</p></div>
+      </div>
+
+      <div class="card oly">
+        <div class="day-name">Friday</div>
+        <div class="day-date">Aug 7</div>
+        <span class="type-tag oly">Oly Lift</span>
+        <div class="content">
+          <p class="lift-line">Clean + Jerk<br>70% x(1+1)...85% x(1+1) x5</p>
+          <p class="lift-line">Clean Pull<br>100% x2, 105% x2 x3</p>
+          <p class="lift-line">Front Squat — 75% x3 x3</p>
+          <p class="accessory">3× Weighted Side Plank + Anti-Rotation Twist 10/side</p>
+        </div>
+        <div class="intensity">
+          <span class="intensity-label">PEAK 85%</span>
+          <div class="bar-track"><div class="bar-fill" style="width:78%"></div></div>
+        </div>
+      </div>
+
+      <div class="card run">
+        <div class="day-name">Saturday</div>
+        <div class="day-date">Aug 8</div>
+        <span class="type-tag run">Long Run</span>
+        <div class="content"><p>Conversational pace. Push distance slightly past last week if it feels good.</p></div>
+      </div>
+
+      <div class="card rest">
+        <div class="day-name">Sunday</div>
+        <div class="day-date">Aug 9</div>
+        <span class="type-tag rest">Rest</span>
+        <div class="content"><p>Family day / easy hike if you want to move.</p></div>
+        <div class="rest-word">Off</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WEEK 3 -->
+  <section class="week">
+    <div class="week-head">
+      <div class="week-title">Week 3</div>
+      <div class="week-range">Aug 10 – Aug 16</div>
+    </div>
+    <div class="grid">
+
+      <div class="card oly">
+        <div class="day-name">Monday</div>
+        <div class="day-date">Aug 10</div>
+        <span class="type-tag oly">Oly Lift</span>
+        <div class="content">
+          <p class="lift-line">Snatch<br>70-85% ladder, 88% x1 x3, 75% x1</p>
+          <p class="lift-line">Snatch Pull<br>100% x2, 105% x2 x2, 110% x2</p>
+          <p class="lift-line">Back Squat — 80% x3 x3</p>
+          <p class="accessory">3× Weighted Plank 20–30s + Side Bend 10/side</p>
+        </div>
+        <div class="intensity">
+          <span class="intensity-label">PEAK 88%</span>
+          <div class="bar-track"><div class="bar-fill" style="width:85%"></div></div>
+        </div>
+      </div>
+
+      <div class="card run">
+        <div class="day-name">Tuesday</div>
+        <div class="day-date">Aug 11</div>
+        <span class="type-tag run">Trail Run</span>
+        <div class="content"><p>Easy-moderate trail, whatever feels right after Monday's heavier lift.</p></div>
+      </div>
+
+      <div class="card rest">
+        <div class="day-name">Wednesday</div>
+        <div class="day-date">Aug 12</div>
+        <span class="type-tag rest">Recovery</span>
+        <div class="content"><p>No early alarm today.</p></div>
+        <div class="rest-word">Rest / Easy Short Run</div>
+      </div>
+
+      <div class="card cf">
+        <div class="day-name">Thursday</div>
+        <div class="day-date">Aug 13</div>
+        <span class="type-tag cf">CrossFit</span>
+        <div class="content"><p>Class as programmed. Conditioning day.</p></div>
+      </div>
+
+      <div class="card oly">
+        <div class="day-name">Friday</div>
+        <div class="day-date">Aug 14</div>
+        <span class="type-tag oly">Oly Lift</span>
+        <div class="content">
+          <p class="lift-line">Clean + Jerk<br>70-85% ladder, 88% x(1+1) x3, 75%</p>
+          <p class="lift-line">Clean Pull<br>100% x2, 105% x2 x2, 110% x2</p>
+          <p class="lift-line">Front Squat — 75% x3 x3</p>
+          <p class="accessory">3× Weighted Side Plank + Anti-Rotation Twist 10/side</p>
+        </div>
+        <div class="intensity">
+          <span class="intensity-label">PEAK 88%</span>
+          <div class="bar-track"><div class="bar-fill" style="width:85%"></div></div>
+        </div>
+      </div>
+
+      <div class="card run">
+        <div class="day-name">Saturday</div>
+        <div class="day-date">Aug 15</div>
+        <span class="type-tag run">Long Run</span>
+        <div class="content"><p>Conversational pace. This is the peak-mileage week of the block — go by feel.</p></div>
+      </div>
+
+      <div class="card rest">
+        <div class="day-name">Sunday</div>
+        <div class="day-date">Aug 16</div>
+        <span class="type-tag rest">Rest</span>
+        <div class="content"><p>Family day / easy hike if you want to move.</p></div>
+        <div class="rest-word">Off</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WEEK 4 -->
+  <section class="week">
+    <div class="week-head">
+      <div class="week-title">Week 4</div>
+      <div class="week-range">Aug 17 – Aug 23</div>
+    </div>
+    <div class="grid">
+
+      <div class="card oly">
+        <div class="day-name">Monday</div>
+        <div class="day-date">Aug 17</div>
+        <span class="type-tag oly">Oly Lift</span>
+        <div class="content">
+          <p class="lift-line">Snatch<br>70-88% ladder, 90% x1 x2, 75% x1</p>
+          <p class="lift-line">Snatch Pull<br>100% x2, 105% x2 x2, 90% x2</p>
+          <p class="lift-line">Back Squat — 80% x3 x3</p>
+          <p class="accessory">3× Weighted Plank 20–30s + Side Bend 10/side</p>
+        </div>
+        <div class="intensity">
+          <span class="intensity-label">PEAK 90%</span>
+          <div class="bar-track"><div class="bar-fill" style="width:92%"></div></div>
+        </div>
+      </div>
+
+      <div class="card run">
+        <div class="day-name">Tuesday</div>
+        <div class="day-date">Aug 18</div>
+        <span class="type-tag run">Trail Run</span>
+        <div class="content"><p>Easy trail. Highest lift intensity of the block was yesterday — keep this light.</p></div>
+      </div>
+
+      <div class="card rest">
+        <div class="day-name">Wednesday</div>
+        <div class="day-date">Aug 19</div>
+        <span class="type-tag rest">Recovery</span>
+        <div class="content"><p>No early alarm today.</p></div>
+        <div class="rest-word">Rest / Easy Short Run</div>
+      </div>
+
+      <div class="card cf">
+        <div class="day-name">Thursday</div>
+        <div class="day-date">Aug 20</div>
+        <span class="type-tag cf">CrossFit</span>
+        <div class="content"><p>Class as programmed. Conditioning day.</p></div>
+      </div>
+
+      <div class="card oly">
+        <div class="day-name">Friday</div>
+        <div class="day-date">Aug 21</div>
+        <span class="type-tag oly">Oly Lift</span>
+        <div class="content">
+          <p class="lift-line">Clean + Jerk<br>70-88% ladder, 90% x(1+1) x2, 75%</p>
+          <p class="lift-line">Clean Pull<br>100% x2, 105% x2 x2, 90% x2</p>
+          <p class="lift-line">Front Squat — 75% x3 x3</p>
+          <p class="accessory">3× Weighted Side Plank + Anti-Rotation Twist 10/side</p>
+        </div>
+        <div class="intensity">
+          <span class="intensity-label">PEAK 90%</span>
+          <div class="bar-track"><div class="bar-fill" style="width:92%"></div></div>
+        </div>
+      </div>
+
+      <div class="card run">
+        <div class="day-name">Saturday</div>
+        <div class="day-date">Aug 22</div>
+        <span class="type-tag run">Long Run</span>
+        <div class="content"><p>Conversational pace. Block's done Monday — good week to hold steady, not chase a number.</p></div>
+      </div>
+
+      <div class="card rest">
+        <div class="day-name">Sunday</div>
+        <div class="day-date">Aug 23</div>
+        <span class="type-tag rest">Rest</span>
+        <div class="content"><p>Family day / easy hike if you want to move.</p></div>
+        <div class="rest-word">Off</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROGRESSION -->
+  <section class="progression">
+    <h2>Peak Load, Lift Days</h2>
+    <p class="note">Pulled straight from Catalyst's Simply Complex cycle (weeks 8–11), sequenced as your Monday/Friday sessions. Loads step up each week and taper down after — plan for Aug 17 to feel like the heaviest day.</p>
+    <div class="prog-row">
+      <div class="prog-col"><span class="prog-pct">75%</span><div class="prog-bar" style="height:55%"></div><span class="prog-wk">WK 1</span></div>
+      <div class="prog-col"><span class="prog-pct">85%</span><div class="prog-bar" style="height:75%"></div><span class="prog-wk">WK 2</span></div>
+      <div class="prog-col"><span class="prog-pct">88%</span><div class="prog-bar" style="height:85%"></div><span class="prog-wk">WK 3</span></div>
+      <div class="prog-col"><span class="prog-pct">90%</span><div class="prog-bar" style="height:92%"></div><span class="prog-wk">WK 4</span></div>
+    </div>
+  </section>
+
+  <footer>
+    Lift programming adapted from Catalyst Athletics' "Simply Complex" cycle, weeks 8–11, condensed from 3 sessions/week to 2 (Mon + Fri). Percentages are of your current 1RM in each lift. Run and CrossFit days are open-ended — go by feel, not a fixed pace or mileage target.
+  </footer>
+
+</div>
+</body>
+</html>
